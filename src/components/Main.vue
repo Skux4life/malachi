@@ -1,11 +1,11 @@
 <script setup>
     import Card from './Card.vue';
     import config from '../../config.json';
-    
 
     let headersList = {
     "Accept": "*/*",
-    "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+    "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+    "Content-Type": "application/json"
     }
 
     let response = await fetch(`https://oauth2.googleapis.com/token?client_id=${config.clientId}&client_secret=${config.clientSecret}&refresh_token=${config.refreshToken}&grant_type=refresh_token`, { 
@@ -18,8 +18,14 @@
 
     headersList["Authorization"] = 'Bearer ' + token
 
-    let response2 = await fetch("https://photoslibrary.googleapis.com/v1/mediaItems", { 
-        method: "GET",
+    let bodyContent = JSON.stringify({
+        "pageSize": "100",
+        "albumId": config.albumId
+    })
+
+    let response2 = await fetch("https://photoslibrary.googleapis.com/v1/mediaItems:search", { 
+        method: "POST",
+        body: bodyContent,
         headers: headersList
     })
 
@@ -29,7 +35,17 @@
 </script>
 
 <template>
-    <div v-for="image in images" class="">
-      <Card :imgSrc=image.baseUrl></Card>
+    <div class="wrapper">
+        <div v-for="image in images" >
+            <Card :imgSrc=image.baseUrl></Card>
+        </div>
     </div>
 </template>
+
+<style scoped>
+    .wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        place-items: center;
+    }
+</style>

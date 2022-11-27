@@ -3,13 +3,22 @@
 </script>
 
 <template>
-    <div>
-        <img :src="imgSrc" width="400" />
+    <div class="frame">
+        <img :src="imgSrc" />
     </div>
 </template>
 
 <style scoped>
 img {
-    margin: 2em
+    width: 100%;
+    height: 100%;
+}
+
+.frame {
+    width: 400px;
+    margin: 1em;
+    border: 3px solid #ccc;
+    background: #eee;
+    padding: 5px 10px;
 }
 </style>
