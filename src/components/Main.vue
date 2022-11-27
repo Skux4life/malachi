@@ -4,7 +4,7 @@
 
     let headersList = {
     "Accept": "*/*",
-    "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+    "User-Agent": "Vue Malachi/1.0 (https://github.com/Skux4life/malachi)",
     "Content-Type": "application/json"
     }
 
@@ -20,7 +20,7 @@
 
     let bodyContent = JSON.stringify({
         "pageSize": "100",
-        "albumId": config.albumId
+        "albumId": config.albumIdMalachi
     })
 
     let response2 = await fetch("https://photoslibrary.googleapis.com/v1/mediaItems:search", { 
